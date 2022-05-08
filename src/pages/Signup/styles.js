@@ -26,8 +26,8 @@ export const $input = styled.input`
   padding-left: 10px;
   border-style: none;
   margin-bottom: 20px;
-    
-    ::placeholder{
+
+  ::placeholder{
       color: #000000;
     }
 `;
