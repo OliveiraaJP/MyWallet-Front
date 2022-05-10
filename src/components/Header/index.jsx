@@ -6,7 +6,7 @@ function Header({ name }) {
     <$header>
       <span>
         <p>Olá, {name}</p>
-        <img src={exitImg} alt="exit button"/>
+        <img src={exitImg} alt="exit button" />
       </span>
     </$header>
     

@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Logo from "../../components/Logo";
+import UserContext from "../../contexts/userContext";
 import { $container, $input, $button } from "./styles";
 
 function Login() {
 
   const navigate = useNavigate()
+  const {userToken ,setUserToken} = useContext(UserContext) 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,11 +22,13 @@ function Login() {
     try {
       const promise = await axios.post("http://localhost:5000/signin", body)
       console.log("LOGOU");
-      navigate("/main")
       console.log(promise);
+      const {token, name} = promise.data;
+      setUserToken({name, token})
+      navigate("/main")
     } catch (error) {
       console.log("erro front login", error);
-    }
+    } 
   }
 
   return (
