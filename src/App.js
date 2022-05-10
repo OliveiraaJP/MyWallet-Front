@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup"
+import Main from "./pages/Main";
 
 import GlobalStyle from "./style/GlobalStyle";
 
@@ -10,6 +11,7 @@ function App(){
         <Routes>
             <Route path="/" element={<Login />}/>
             <Route path="/signup" element={<Signup />}/>
+            <Route path="/main" element={<Main/>}/>
         </Routes>
         <GlobalStyle />
         </BrowserRouter>

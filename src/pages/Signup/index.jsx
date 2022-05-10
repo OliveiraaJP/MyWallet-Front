@@ -1,24 +1,41 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import Logo from "../../components/Logo";
 import { $container, $input, $button } from "./styles";
 
+
+
+
 function Signup() {
+  
+  const navigate = useNavigate()
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  function login(event) {
+  async function createUser(event) {
     event.preventDefault();
     console.log(name, email, password, confirmPassword);
+    try {
+      const promise = axios.post(`http://localhost:5000/signup`, {
+        name, email, password, confirmPassword
+      })
+      console.log("cadastrou com sucesso");
+      navigate("/")
+    } catch (error) {
+      console.log("erro front criar user", error);
+    }
   }
+
+  
 
   return (
     <$container>
       <Logo />
-      <form onSubmit={login}>
+      <form onSubmit={createUser}>
       <$input
           type="text"
           placeholder="Nome"
@@ -45,7 +62,7 @@ function Signup() {
           required
         />
         <$button type="submit">
-          <p>Entrar</p>
+          <p>Cadastrar</p>
         </$button>
       </form>
       <Link to="/" style={{ textDecoration: 'none', marginTop:'36px'}}>
