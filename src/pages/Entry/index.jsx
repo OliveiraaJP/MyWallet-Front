@@ -10,11 +10,7 @@ function Entry() {
   const [value, setValue] = useState("");
   const [description, setDescription] = useState("");
   const { userToken } = useContext(UserContext);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userToken.token}`,
-    },
-  };
+ 
 
   async function sendEntry(event) {
     event.preventDefault();
@@ -23,11 +19,14 @@ function Entry() {
       type: "entry",
       value: parseFloat(value),
     };
-
+    const headers = {
+        headers: {"Authorization": `Bearer ${userToken.token}`}
+    };
+    
     try {
-        await axios.post("http://localhost:5000/transactions", body, config)
-        console.log("postou entrada ->" + body);
-        navigate ("/")
+      console.log("postou entrada ->" + body);
+      navigate("/main")
+      await axios.post("http://localhost:5000/transactions", body, headers)
     } catch (error) {
         console.log("error entry", error);
     }
@@ -42,11 +41,13 @@ function Entry() {
         <$input
           placeholder="Valor"
           required
+          value={value}
           onChange={(e) => setValue(e.target.value)}
         ></$input>
         <$input
           placeholder="Descrição"
           required
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></$input>
         <$button type="submit">

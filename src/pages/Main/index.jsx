@@ -14,7 +14,7 @@ function Main() {
   const [transactions, setTransactions] = useState([])
   const {userToken} = useContext(UserContext)
   console.log(userToken);
-  const config = {
+  const headers = {
     headers : {
       "Authorization": `Bearer ${userToken.token}`
     }
@@ -24,12 +24,16 @@ function Main() {
     console.log("USEI EFFECT");
     async function showTransactions() {
       try {
-        const promise = await axios.get("http://localhost:5000/transactions", config)
+        console.log("teste");
+        const promise = await axios.get("http://localhost:5000/transactions", headers)
+        console.log("teste2");
         console.log(promise);
         setTransactions(promise.data)
         console.log("transação ->", transactions);
       } catch (error) {
         console.log("erro use effect get transaction", error);
+      } finally{
+        
       }
     }
     

@@ -10,11 +10,7 @@ function Exit() {
   const [value, setValue] = useState("");
   const [description, setDescription] = useState("");
   const { userToken } = useContext(UserContext);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userToken.token}`,
-    },
-  };
+  
 
   async function sendExit(event) {
     event.preventDefault();
@@ -25,9 +21,12 @@ function Exit() {
     };
 
     try {
-        await axios.post("http://localhost:5000/transactions", body, config)
+        const headers = {
+            headers : {"Authorization": `Bearer ${userToken.token}`} 
+        };
         console.log("postou saída ->" + body);
-        navigate ("/")
+        navigate("/main")
+        await axios.post("http://localhost:5000/transactions", body, headers)
     } catch (error) {
         console.log("error exit", error);
     }
@@ -42,11 +41,13 @@ function Exit() {
         <$input
           placeholder="Valor"
           required
+          value={value}
           onChange={(e) => setValue(e.target.value)}
         ></$input>
         <$input
           placeholder="Descrição"
           required
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></$input>
         <$button type="submit">
