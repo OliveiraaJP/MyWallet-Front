@@ -4,6 +4,7 @@ import Signup from "./pages/Signup"
 import Main from "./pages/Main";
 
 import GlobalStyle from "./style/GlobalStyle";
+import { useContext } from "react";
 
 function App(){
     return(
